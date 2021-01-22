@@ -1,22 +1,30 @@
-import { Component } from 'react';
-import shortid from 'shortid';
+import { Component } from "react";
+import shortid from "shortid";
+import PropTypes from "prop-types";
 
-import s from './form.module.css';
+import s from "./form.module.css";
 
 export default class Form extends Component {
   state = {
-    name: '',
-    number: '',
+    name: "",
+    number: "",
   };
 
-  handleChange = e => {
+  static propTypes = {
+    handleChange: PropTypes.func,
+    handleFormSubmit: PropTypes.func,
+    validateForm: PropTypes.func,
+    reset: PropTypes.func,
+  };
+
+  handleChange = (e) => {
     const { name, value } = e.currentTarget;
     this.setState({
       [name]: value,
     });
   };
 
-  handleFormSubmit = e => {
+  handleFormSubmit = (e) => {
     e.preventDefault();
     const { name, number } = this.state;
     const { onAdd } = this.props;
@@ -31,7 +39,7 @@ export default class Form extends Component {
     const { onCheckUnigue } = this.props;
 
     if (!name || !number) {
-      alert('filed is empti');
+      alert("filed is empti");
       return false;
     }
     return onCheckUnigue(name);
@@ -39,8 +47,8 @@ export default class Form extends Component {
 
   reset = () => {
     this.setState({
-      name: '',
-      number: '',
+      name: "",
+      number: "",
     });
   };
 
